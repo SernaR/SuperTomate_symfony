@@ -3,54 +3,34 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * Ingredient
- *
- * @ORM\Table(name="ingredients")
  * @ORM\Entity(repositoryClass="App\Repository\IngredientRepository")
+ * 
  */
 class Ingredient
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="rank", type="integer", nullable=false)
+     * @ORM\Column(type="integer")
+     * @Groups({"recipe"})
      */
     private $rank;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="content", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"recipe"})
      */
     private $content;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="createdAt", type="datetime", nullable=false)
-     */
-    private $createdat;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updatedAt", type="datetime", nullable=false)
-     */
-    private $updatedat;
-
-    /**
-     * @var \Recipe
      * @ORM\ManyToOne(targetEntity="App\Entity\Recipe", inversedBy="ingredients")
      */
     private $recipe;
@@ -95,5 +75,4 @@ class Ingredient
 
         return $this;
     }
-    
 }

@@ -5,49 +5,32 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * Tag
- *
- * @ORM\Table(name="tags")
  * @ORM\Entity(repositoryClass="App\Repository\TagRepository")
  */
 class Tag
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     * @Groups({"recipe", "tags", "params"})
      */
     private $id;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="name", type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"recipes_per_category", "tags", "homepage", "params"})
      */
     private $name;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="createdAt", type="datetime", nullable=false)
-     */
-    private $createdat;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updatedAt", type="datetime", nullable=false)
-     */
-    private $updatedat;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Recipe", inversedBy="tags")
      */
     private $recipes;
+
     public function __construct()
     {
         $this->recipes = new ArrayCollection();

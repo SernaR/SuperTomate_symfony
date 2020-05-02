@@ -2,57 +2,33 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Highlight
- *
- * @ORM\Table(name="highlights")
  * @ORM\Entity(repositoryClass="App\Repository\HighlightRepository")
  */
 class Highlight
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $title;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="content", type="text", length=65535, nullable=false)
+     * @ORM\Column(type="text")
      */
     private $content;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="createdAt", type="datetime", nullable=false)
-     */
-    private $createdat;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updatedAt", type="datetime", nullable=false)
-     */
-    private $updatedat;
-
-    /**
-     * @var \RecipeHighlight
      * @ORM\OneToMany(targetEntity="App\Entity\RecipeHighlight", mappedBy="highlight")
      */
     private $recipeHighlights;
@@ -121,5 +97,4 @@ class Highlight
 
         return $this;
     }
-    
 }

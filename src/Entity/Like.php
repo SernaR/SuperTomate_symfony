@@ -3,61 +3,38 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * Like
- *
- * @ORM\Table(name="likes")
  * @ORM\Entity(repositoryClass="App\Repository\LikeRepository")
+ * @ORM\Table(name="`like`")
+ * 
  */
 class Like
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="record", type="integer", nullable=false)
+     * @ORM\Column(type="integer")
+     * @Groups({"recipe"})
      */
     private $record;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="createdAt", type="datetime", nullable=false)
-     */
-    private $createdat;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updatedAt", type="datetime", nullable=false)
-     */
-    private $updatedat;
-
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="likes")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="userId", referencedColumnName="id")
-     * })
-     */
-    private $user;
-
-    /**
-     * @var \Recipe
-     *
      * @ORM\ManyToOne(targetEntity="App\Entity\Recipe", inversedBy="likes")
      */
     private $recipe;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="likes")
+     * @Groups({"recipe"})
+     */
+    private $user;
 
     public function getId(): ?int
     {

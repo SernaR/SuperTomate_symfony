@@ -5,70 +5,87 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Subcomment
- *
- * @ORM\Table(name="subcomments",)
  * @ORM\Entity(repositoryClass="App\Repository\SubCommentRepository")
  */
-class Subcomment
+class SubComment
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="content", type="text", length=65535, nullable=false)
+     * @ORM\Column(type="text")
      */
     private $content;
 
     /**
-     * @var bool
-     *
-     * @ORM\Column(name="isChecked", type="boolean", nullable=false)
+     * @ORM\Column(type="boolean")
      */
-    private $ischecked;
+    private $isChecked;
 
     /**
-     * @var bool
-     *
-     * @ORM\Column(name="isBlocked", type="boolean", nullable=false)
+     * @ORM\Column(type="boolean")
      */
-    private $isblocked;
+    private $isBlocked;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="createdAt", type="datetime", nullable=false)
-     */
-    private $createdat;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updatedAt", type="datetime", nullable=false)
-     */
-    private $updatedat;
-
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="subComments")
-     */
-    private $user;
-
-    /**
-     * @var \Comment
-     *
-      * @ORM\ManyToOne(targetEntity="App\Entity\Comment", inversedBy="subComments")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Comment", inversedBy="subComment")
      */
     private $comment;
 
-    
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(string $content): self
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    public function getIsChecked(): ?bool
+    {
+        return $this->isChecked;
+    }
+
+    public function setIsChecked(bool $isChecked): self
+    {
+        $this->isChecked = $isChecked;
+
+        return $this;
+    }
+
+    public function getIsBlocked(): ?bool
+    {
+        return $this->isBlocked;
+    }
+
+    public function setIsBlocked(bool $isBlocked): self
+    {
+        $this->isBlocked = $isBlocked;
+
+        return $this;
+    }
+
+    public function getComment(): ?Comment
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?Comment $comment): self
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
 }

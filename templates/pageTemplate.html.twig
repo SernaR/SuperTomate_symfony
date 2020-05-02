@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main class="pages-back">
+        <div class="container">
+            <div class="card" style="margin-top: 3em; margin-bottom: 1em;"></div>
+            {% block page %}{% endblock %}
+        </div>
+    </main>
+{% endblock %}

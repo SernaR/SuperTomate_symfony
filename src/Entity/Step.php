@@ -3,56 +3,35 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * Step
- *
- * @ORM\Table(name="steps")
  * @ORM\Entity(repositoryClass="App\Repository\StepRepository")
+ * 
  */
 class Step
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="rank", type="integer", nullable=false)
+     * @ORM\Column(type="integer")
+     * @Groups({"recipe"})
      */
     private $rank;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="content", type="text", length=65535, nullable=true)
+     * @ORM\Column(type="text")
+     * @Groups({"recipe"})
      */
     private $content;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="createdAt", type="datetime", nullable=false)
-     */
-    private $createdat;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updatedAt", type="datetime", nullable=false)
-     */
-    private $updatedat;
-
-    /**
-     * @var \Recipe
-     *
-      * @ORM\ManyToOne(targetEntity="App\Entity\Recipe", inversedBy="steps")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Recipe", inversedBy="steps")
      */
     private $recipe;
 

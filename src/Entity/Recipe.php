@@ -5,116 +5,126 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Recipe
- *
- * @ORM\Table(name="recipes")
  * @ORM\Entity(repositoryClass="App\Repository\RecipeRepository")
  */
 class Recipe
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     * @Groups({"recipes_per_category", "homepage"})
      */
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"recipes_per_category", "recipe", "homepage"})
+     * @Assert\NotBlank(message="Le nom  doit être renseigné")
      */
     private $name;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="serve", type="integer", nullable=false)
+     * @ORM\Column(type="integer")
+     * @Groups({"recipe"})
+     * @Assert\NotBlank(message="Le nombre de part doit être renseigné")
      */
     private $serve;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="making", type="integer", nullable=false)
+     * @ORM\Column(type="integer")
+     * @Groups({"recipe"})
+     * @Assert\NotBlank(message="Le temps de préparation doit être renseigné")
      */
     private $making;
 
     /**
-     * @var int|null
-     *
-     * @ORM\Column(name="cook", type="integer", nullable=true)
+     * @ORM\Column(type="integer")
+     * @Groups({"recipe"})
      */
-    private $cook;
+    private $cook = 0;
 
     /**
-     * @var int|null
-     *
-     * @ORM\Column(name="wait", type="integer", nullable=true)
+     * @ORM\Column(type="integer")
+     * @Groups({"recipe"})
      */
-    private $wait;
+    private $wait = 0;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="picture", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"recipes_per_category", "recipe", "homepage"})
+     * @Assert\NotBlank(message="La photo est obligatoire")
      */
     private $picture;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="slug", type="string", length=255, nullable=true)
+     * @ORM\Column(type="boolean")
+     * @Groups({"recipe"})
+     */
+    private $isDraft = false;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"recipes_per_category", "homepage"})
      */
     private $slug;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="createdAt", type="datetime", nullable=false)
-     */
-    private $createdat;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="isDraft", type="boolean", nullable=false)
-     */
-    private $isdraft;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updatedAt", type="datetime", nullable=false)
-     */
-    private $updatedat;
-
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="recipes")
-     */
-    private $user;
-
-    /**
-     * @var \Category
-     *
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="recipe")
-     * 
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="recipes")
+     * @Groups({"recipe","homepage"})
+     * @Assert\NotBlank(message="La catégorie doit être renseigné")
      */
     private $category;
 
     /**
-     * @var \Difficulty
-     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="recipe")
+     * 
+     */
+    private $comments;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Difficulty", inversedBy="recipe")
-     *
+     * @Groups({"recipe"})
+     * @Assert\NotBlank(message="La difficulté doit être renseigné")
      */
     private $difficulty;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Ingredient", mappedBy="recipe")
+     * @Groups({"recipe"})
+     * @Assert\NotBlank(message="Les Ingrédients doivent être renseignés")
+     */
+    private $ingredients;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Like", mappedBy="recipe")
+     * @Groups({"recipe"})
+     */
+    private $likes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Step", mappedBy="recipe")
+     * @Groups({"recipe"})
+     * @Assert\NotBlank(message="Les étapesl doivent être renseignées")
+     */
+    private $steps;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", mappedBy="recipes")
+     * @Groups({"recipes_per_category", "recipe", "homepage"})
+     * @Assert\NotBlank(message="Les tags doivent être renseignés")
+     */
+    private $tags;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="recipes")
+     * @Groups({"recipe"})
+     */
+    private $user;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\RecipeHighlight", mappedBy="recipe")
@@ -122,33 +132,9 @@ class Recipe
     private $recipeHighlights;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", mappedBy="recipes")
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
-    private $tags;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="recipe")
-     * 
-     */
-    private $comments;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Ingredient", mappedBy="recipe")
-     * 
-     */
-    private $ingredients;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Like", mappedBy="recipe")
-     * 
-     */
-    private $likes;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Step", mappedBy="recipe")
-     * 
-     */
-    private $steps;
+    private $createdAt;
 
     public function __construct()
     {
@@ -491,5 +477,4 @@ class Recipe
 
         return $this;
     }
-
 }

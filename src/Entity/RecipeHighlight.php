@@ -5,53 +5,23 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * RecipeHighlight
- *
- * @ORM\Table(name="recipehighlights")
  * @ORM\Entity(repositoryClass="App\Repository\RecipeHighlightRepository")
  */
 class RecipeHighlight
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var bool|null
-     *
-     * @ORM\Column(name="isSelected", type="boolean", nullable=true)
-     */
-    private $isSelected;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="createdAt", type="datetime", nullable=false)
-     */
-    private $createdat;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updatedAt", type="datetime", nullable=false)
-     */
-    private $updatedat;
-
-    /**
-     * @var \Recipe
-     *
-    * @ORM\ManyToOne(targetEntity="App\Entity\Recipe", inversedBy="recipeHighlights")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Recipe", inversedBy="recipeHighlights")
      */
     private $recipe;
 
     /**
-     * @var \Highlight
-     *
      * @ORM\ManyToOne(targetEntity="App\Entity\Highlight", inversedBy="recipeHighlights")
      */
     private $highlight;

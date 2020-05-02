@@ -5,83 +5,64 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * Comment
- *
- * @ORM\Table(name="comments")
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
+ * 
  */
 class Comment
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     * @Groups({"recipe_comment"})
      */
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="content", type="text", length=65535, nullable=false)
+     * @ORM\Column(type="text")
+     * @Groups({"recipe_comment"})
      */
     private $content;
 
     /**
-     * @var bool
-     *
-     * @ORM\Column(name="isChecked", type="boolean", nullable=false)
+     * @ORM\Column(type="boolean")
      */
-    private $ischecked;
+    private $isChecked;
 
     /**
-     * @var bool
-     *
-     * @ORM\Column(name="isBlocked", type="boolean", nullable=false)
+     * @ORM\Column(type="boolean")
      */
-    private $isblocked;
+    private $isBlocked;
 
     /**
-     * @var bool
-     *
-     * @ORM\Column(name="isReaded", type="boolean", nullable=false)
+     * @ORM\Column(type="boolean")
      */
-    private $isreaded;
+    private $isReaded;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="createdAt", type="datetime", nullable=false)
-     */
-    private $createdat;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updatedAt", type="datetime", nullable=false)
-     */
-    private $updatedat;
-
-    /**
-     * @var \User
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
-     */
-    private $user;
-
-    /**
-     * @var \Recipe
      * @ORM\ManyToOne(targetEntity="App\Entity\Recipe", inversedBy="comments")
      */
     private $recipe;
 
     /**
-     * @var \SubComment
      * @ORM\OneToMany(targetEntity="App\Entity\SubComment", mappedBy="comment")
      */
-    private $subComments;
+    private $subComment;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
+     * @Groups({"recipe_comment"})
+     */
+    private $user;
+
+    /**
+     * @ORM\Column(type="datetime")
+     *  @Groups({"recipe_comment"})
+     */
+    private $createdAt;
 
     public function __construct()
     {

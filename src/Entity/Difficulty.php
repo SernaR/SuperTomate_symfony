@@ -5,47 +5,28 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * Difficulty
- *
- * @ORM\Table(name="difficulties")
  * @ORM\Entity(repositoryClass="App\Repository\DifficultyRepository")
  */
 class Difficulty
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     * @Groups({"recipe", "difficulties", "params"})
      */
     private $id;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="name", type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"recipe", "difficulties", "params"})
      */
     private $name;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="createdAt", type="datetime", nullable=false)
-     */
-    private $createdat;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updatedAt", type="datetime", nullable=false)
-     */
-    private $updatedat;
-
-    /**
-     * @var \recipe
      * @ORM\OneToMany(targetEntity="App\Entity\Recipe", mappedBy="difficulty")
      */
     private $recipe;

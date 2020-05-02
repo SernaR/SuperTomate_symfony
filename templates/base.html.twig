@@ -2,11 +2,45 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <title>{% block title %}Super Tomate{% endblock %}</title>
+        {% block stylesheets %}
+            <link href="https://bootswatch.com/4/minty/bootstrap.min.css" rel="stylesheet"></link>
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+            <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Quicksand&display=swap" rel="stylesheet">
+        {% endblock %}
     </head>
     <body>
+        <header>
+            <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light d-flex flex-row-reverse"><a aria-current="page"
+                class="navbar-brand mr-4 active" href={{ path('app_homepage')}}>
+                <div>
+                    {{ source('mascotte-super-tomate-succ.svg') }}
+                </div>
+            </a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+                aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation"><span
+                    class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarColor02">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" href={{ path('app_category_recipes', { 'category': 'Apéro' }) }}>Apéro</a></li>
+                    <li class="nav-item"><a class="nav-link" href={{ path('app_category_recipes', { 'category': 'Entrées' }) }}>Entrées</a></li>
+                    <li class="nav-item"><a class="nav-link" href={{ path('app_category_recipes', { 'category': 'Plats' }) }}>Plats</a></li>
+                    <li class="nav-item"><a class="nav-link" href={{ path('app_category_recipes', { 'category': 'Desserts' }) }}>Desserts</a></li>
+                    <li class="nav-item"><a class="nav-link" href={{ path('app_category_recipes', { 'category': 'Soupes' }) }}>Soupes</a></li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="btn btn-danger" href="#/login">Connexion</a></li>
+                </ul>
+            </div>
+            </nav>
+        </header>
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <footer class="flex-row-reverse ">© 2019 Super-Tomate | Site réalisé par 
+            <a href="https://www.kipcreativ.fr">Kip Creativ</a> | <a href="/">Mentions légales</a>
+        </footer>
+        {% block javascripts %}
+            <script src="https://kit.fontawesome.com/f0b078baa8.js" crossorigin="anonymous"></script>
+            <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>  
+        {% endblock %}
     </body>
 </html>
