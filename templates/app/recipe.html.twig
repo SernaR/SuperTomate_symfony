@@ -1,0 +1,59 @@
+{% extends 'pageTemplate.html.twig' %}
+
+{% block page %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('app_homepage')}}">Accueil</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('app_category_recipes', { 'category': recipe.category.name }) }}">{{ recipe.category.name }}</a></li>
+        <li class="breadcrumb-item active">{{ recipe.name }}</li>
+    </ol>
+    <div class="card px-4 mb-3">
+        <h1 class="display-2 text-center py-4">{{ recipe.name }}</h1>
+         {% include 'app/components/hearts.html.twig' with {'likes': recipe.likes } %}
+    <div class="row d-flex justify-content-around p-2">
+        <div>               
+            <p>Difficulté : {{ recipe.difficulty.name }}</p>
+        </div>
+        <div>               
+            <p>Nombre de personnes : {{ recipe.serve }}</p>
+        </div>
+        <div>               
+            <p>Préparation : {{ recipe.making }} mn</p>
+        </div>
+        {% if recipe.cook != 0 %}
+            <div>               
+                <p>Temps de cuisson : {{ recipe.cook }} mn</p>
+            </div>
+        {% endif %}   
+        {% if recipe.wait != 0 %}
+            <div>               
+                <p>Temps de repos : {{ recipe.wait }} mn</p>
+            </div>
+        {% endif %}    
+    </div>
+    <div class="row p-3">
+        <div id="recette-img" class="col"><img class="img-fluid card" alt="Responsive image recette" src={{ asset(recipe.picture) }}></div>
+        <div class="col card py-3 lead">
+            <h2 class="display-4 text-center  mb-4 recipe">Ingrédients</h2>
+            <div class="container pt-3">
+                <div class="mb-1">
+                    <ul>
+                        {% for ingredient in recipe.ingredients %}
+                            <li class="food">{{ ingredient.content }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="pt-3">
+        <h2 class="display-4 text-center mb-4 recipe">Les étapes de la recette</h2>
+        <div class="container py-3"> 
+            {% for step in recipe.steps %}
+                <div class="card p-3 mb-3">
+                    <h3>Étape 1</h3>
+                    <p class="card-text lead" style="white-space: pre;">{{ step.content }}</p>
+                </div>
+             {% endfor %}    
+        </div>
+    </section>            
+{% endblock %}

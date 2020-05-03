@@ -1,7 +1,6 @@
 {% extends 'pageTemplate.html.twig' %}
 
 {% block page %}
-   
    <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{{ path('app_homepage')}}">Accueil</a></li>
       <li class="breadcrumb-item active">{{ category }}</li>
@@ -12,63 +11,12 @@
       </div>
       <div class="row">
          <div class="col-sm-3 bg-light border-right">
-            <aside>
-               <form class="form-inline my-4">
-                  <div class="input-group">
-                     <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-search"
-                              aria-hidden="true"></i></span></div><input type="text" class="form-control"
-                        placeholder="Rechercher" name="Rechercher" value="">
-                  </div>
-               </form>
-               <form>
-                  <h2 class="mt-4">Filtrer par:</h2>
-                                                <div class="form-check mx-3
-                        "><input class="form-check-input" type="checkbox" name="Vegan" id="Vegan"><label class="form-check-label"
-                                                         for="Vegan">Vegan</label></div>
-                                                <div class="form-check mx-3
-                        "><input class="form-check-input" type="checkbox" name="Végetarien" id="Végetarien"><label class="form-check-label"
-                                                         for="Végetarien">Végetarien</label></div>
-                                                <div class="form-check mx-3
-                        "><input class="form-check-input" type="checkbox" name="gluten free" id="gluten free"><label class="form-check-label"
-                                                         for="gluten free">gluten free</label></div>
-                                                <div class="form-check mx-3
-                        "><input class="form-check-input" type="checkbox" name="Patisserie" id="Patisserie"><label class="form-check-label"
-                                                         for="Patisserie">Patisserie</label></div>
-                                                <div class="form-check mx-3
-                        "><input class="form-check-input" type="checkbox" name="soupe" id="soupe"><label class="form-check-label"
-                                                         for="soupe">soupe</label></div>
-                                                <div class="form-check mx-3
-                        "><input class="form-check-input" type="checkbox" name="cocktail" id="cocktail"><label class="form-check-label"
-                                                         for="cocktail">cocktail</label></div>
-                                                <div class="form-check mx-3
-                        "><input class="form-check-input" type="checkbox" name="detox" id="detox"><label class="form-check-label"
-                                                         for="detox">detox</label></div>
-                                                <div class="form-check mx-3
-                        "><input class="form-check-input" type="checkbox" name="manger" id="manger"><label class="form-check-label"
-                                                         for="manger">manger</label></div>
-                                                <div class="form-check mx-3
-                        "><input class="form-check-input" type="checkbox" name="tag" id="tag"><label class="form-check-label"
-                        for="tag">tag</label></div><button type="submit"
-                     class="btn btn-primary my-4">Filtrer</button><button type="button"
-                     class="btn btn-link">Vider les filtres</button>
-               </form>
-            </aside>
+            {% include 'app/components/aside.html.twig' %}
          </div>
          <div class="col-sm-9">
-            <div class="card-group card-1">
+            <div class="card-group card-1" id="filtered-list">
                {% for recipe in recipes %}
-                  <div class="col-4 ">
-                     <div class="card mb-4 text-center card-2">
-                        <h3 class="card-header card-3 card-3">{{ recipe.name }}</h3>
-                        <a href="#/recette/Apéro/dessert/3"><img src="{{ asset(recipe.picture) }}" class="img-fluid" alt={{ recipe.name }}></a>
-                        <div class="card-body">
-                              {% for tag in recipe.tags %}
-                                 <p class="card-text"><span class="badge badge-secondary ml-1">{{ tag.name }}</span></p>
-                              {% endfor %} 
-                              <a class="btn btn-outline-primary btn-sm" href="#/recette/Apéro/dessert/3" >Visualiser</a>
-                        </div>
-                     </div>
-                  </div>
+                   {% include 'app/components/recipeCard.html.twig' with {'recipe': recipe, 'col': 'col-4' } %}
                {% endfor %}    
             </div>
          </div>

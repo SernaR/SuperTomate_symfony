@@ -7,7 +7,7 @@
             <h2 class="text-center ">Le héros du potager</h2>
         </div>
         <section class="pt-3">
-            <h2 class="container display-4 text-primary text-center pt-3 mb-4">Les mains dans la tambouille</h2>
+            <h2 class="container display-4 text-primary text-center pt-3 mb-4 home-title-2">Les mains dans la tambouille</h2>
             <div class="container pt-3">
                 <p>C’est une catastrophe ! On recense toujours plus de cas de recettes de cuisine éparpillées un peu
                     partout sur la toile. Face à ce désastre, nous avons fait appel aux pouvoirs d’un sauveur : Super
@@ -20,40 +20,28 @@
             </div>
         </section>
         <section class="pt-3">
-            <h2 class="container display-4 text-primary text-center pt-3 mb-4">Les jeunes pousses</h2>
+            <h2 class="container display-4 text-primary text-center pt-3 mb-4 home-title-2">Les jeunes pousses</h2>
             <div class="container pt-3">
                 <div>
                     <div class="card-group">
                         {% for recipe in recipes %}
-                            <div class="col-3">
-                                <div class="card mb-4 text-center">
-                                    <h3 class="card-header">{{ recipe.name }}</h3>
-                                    <a href="#/recette/categorie/nouveau/49"><img src="{{ recipe.picture }}" class="img-fluid" alt={{ recipe.name }}></a>
-                                    <div class="card-body">
-                                        {% for tag in recipe.tags %}
-                                            <p class="card-text"><span class="badge badge-secondary ml-1">{{ tag.name }}</span></p>
-                                        {% endfor %}    
-                                        <a class="btn btn-outline-primary btn-sm" href="#/recette/categorie/nouveau/49">Visualiser</a>
-                                    </div>
-                                </div>
-                            </div>
+                            {% include 'app/components/recipeCard.html.twig' with {'recipe': recipe, 'col': 'col-3' } %}
                         {% endfor %}
                     </div>
                 </div>
-            </div>    
+            </div>       
         </section>
         <section class="pt-3">
-            <h2 class="container display-4 text-primary text-center pt-3 mb-4">La super-héroïne du potager</h2>
+            <h2 class="container display-4 text-primary text-center pt-3 mb-4 home-title-2">La super-héroïne du potager</h2>
             <div class="container pt-3">
                 <div class="row p-3">
                     <div id="recette-img" class="col">
-                    <img class="img-fluid card" alt="Responsive image recette"
-                    src="images\recipe-picture.jpg">
+                        <img class="img-fluid card" alt={{ headline.recipe.name }} src={{ asset(headline.recipe.picture) }}>
                     </div>
                     <div class="col text-center p-4">
-                        <h3 class="text-center home-title-3 py-2">nouvelle recette de soupe</h3>
-                        <p class="heroine">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus volutpat diam in sem facilisis rhoncus. Quisque consequat tincidunt convallis. Cras eget luctus tortor. Mauris gravida lectus a dui pellentesque, convallis tincidunt arcu consequat. Aliquam libero nulla, placerat a dignissim sit amet, cursus ac purus. Integer egestas eu massa in dapibus. Mauris posuere massa sem, volutpat efficitur justo blandit sit amet. Cras quis pulvinar ipsum. Maecenas eros massa, tincidunt ut lacus at, rhoncus accumsan ipsum. Vestibulum metus nisl, posuere vel risus at, convallis ultricies tellus. Donec a metus laoreet, tincidunt eros eget, ultricies ante. Curabitur non justo sed libero facilisis cursus. Morbi ornare, nulla vitae semper blandit, turpis dui imperdiet libero, non pretium erat metus non mi. Nulla blandit pellentesque purus in ultrices.</p>
-                        <button type="button" class="btn btn-danger py-3">Je découvre la recette</button>
+                        <h3 class="text-center home-title-3 py-2">{{ headline.recipe.name }}</h3>
+                        <p class="heroine">{{ headline.highlight.content }}</p>
+                        <a class="btn btn-danger py-3" href={{ path('app_recipe', { 'category': headline.recipe.category.name, 'slug': headline.recipe.slug, 'recipe': headline.recipe.id }) }}>Je découvre la recette</a>
                     </div>
                 </div>
             </div>   

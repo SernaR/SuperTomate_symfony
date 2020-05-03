@@ -19,6 +19,16 @@ class RecipeHighlightRepository extends ServiceEntityRepository
         parent::__construct($registry, RecipeHighlight::class);
     }
 
+    public function headline()
+    {
+        return $this->createQueryBuilder('r')
+            ->orderBy('r.id', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     // /**
     //  * @return RecipeHighlight[] Returns an array of RecipeHighlight objects
     //  */

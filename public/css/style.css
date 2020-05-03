@@ -101,9 +101,9 @@ ul{list-style-type: none;}
 /*rajouter class "home-title-2" sur les h2 sauf h2-jumbotron*/
 /*rajouter "home-title-3" sur titre de la recette héroine*/
 .tomato{
-	background-image: url('../images/404.jpg');
+	background-image: url('../images/tomathome.jpg');
 	background-size: cover;
-	background-position: top center;
+	background-position: center center;
 	height:700px;
 	padding: 10em 0;}
 .tomato>h1, .tomato>h2{
