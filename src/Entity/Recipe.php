@@ -7,9 +7,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RecipeRepository")
+ * @Vich\Uploadable
  */
 class Recipe
 {
@@ -55,11 +59,18 @@ class Recipe
     private $wait = 0;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=255)
      * @Groups({"recipes_per_category", "recipe", "homepage"})
-     * @Assert\NotBlank(message="La photo est obligatoire")
+     *
      */
     private $picture;
+
+    /**
+     * @Vich\UploadableField(mapping="pictures", fileNameProperty="picture")
+     * @var File
+     */
+    private $imageFile;
 
     /**
      * @ORM\Column(type="boolean")
@@ -68,8 +79,8 @@ class Recipe
     private $isDraft = false;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"recipes_per_category", "homepage"})
+     * @ORM\Column(length=128, unique=true)
+     * @Gedmo\Slug(fields={"name"})
      */
     private $slug;
 
@@ -132,9 +143,18 @@ class Recipe
     private $recipeHighlights;
 
     /**
-     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
+     * @var \DateTime $createdAt
+     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
+
+    /**
+     * @var \DateTime $updatedAt
+     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -145,6 +165,11 @@ class Recipe
         $this->tags = new ArrayCollection();
         $this->recipeHighlights = new ArrayCollection();
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    } 
 
     public function getId(): ?int
     {
@@ -211,16 +236,30 @@ class Recipe
         return $this;
     }
 
-    public function getPicture(): ?string
+    public function getPicture()
     {
         return $this->picture;
     }
 
-    public function setPicture(string $picture): self
+    public function setPicture($picture)
     {
         $this->picture = $picture;
 
         return $this;
+    }
+
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
     }
 
     public function getIsDraft(): ?bool
@@ -238,13 +277,6 @@ class Recipe
     public function getSlug(): ?string
     {
         return $this->slug;
-    }
-
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
-
-        return $this;
     }
 
     public function getCategory(): ?Category
@@ -471,10 +503,9 @@ class Recipe
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        $this->createdAt = $createdAt;
-
-        return $this;
+        return $this->updatedAt;
     }
+
 }

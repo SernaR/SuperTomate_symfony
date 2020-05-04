@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AppController extends AbstractController
 {
     /**
-     * @Route("/{category}/{slug}/{recipe}", name="app_recipe")
+     * @Route("/{categorySlug}/{recipeSlug}/{recipe}", name="app_recipe")
      */
     public function getRecipe(RecipeRepository $recipeRepository, Recipe $recipe) {
         return $this->render('app/recipe.html.twig', [
@@ -20,13 +20,14 @@ class AppController extends AbstractController
     }
 
     /**
-     * @Route("/{category}/recettes", name="app_category_recipes")
+     * @Route("/{categorySlug}/recettes", name="app_category_recipes")
      */
-    public function getCategoryRecipes(RecipeRepository $recipeRepository, $category) 
+    public function getCategoryRecipes(RecipeRepository $recipeRepository, $categorySlug) 
     {
+        $recipes = $recipeRepository->recipesPerCategory($categorySlug);
         return $this->render('app/categoryRecipes.html.twig', [
-            'recipes' => $recipeRepository->recipesPerCategory($category),
-            'category' => $category
+            'recipes' => $recipes,
+            'category' => $recipes ? $recipes[0]->getcategory()->getName() : $categorySlug
         ]);
     }
 

@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
@@ -27,6 +28,12 @@ class Category
     private $name;
 
     /**
+     * @ORM\Column(length=128, unique=true)
+     * @Gedmo\Slug(fields={"name"})
+     */
+    private $slug;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Recipe", mappedBy="category")
      * 
      */
@@ -35,6 +42,11 @@ class Category
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -52,6 +64,11 @@ class Category
         $this->name = $name;
 
         return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
     }
 
     /**

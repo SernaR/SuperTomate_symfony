@@ -19,15 +19,15 @@ class RecipeRepository extends ServiceEntityRepository
         parent::__construct($registry, Recipe::class);
     }
 
-    public function recipesPerCategory($category)
+    public function recipesPerCategory($slug)
     {
         return $this->createQueryBuilder('r')
         ->select('r')
         ->join('r.category', 'c')
-        ->andWhere('c.name = :category')
+        ->andWhere('c.slug = :category')
         ->andWhere('r.isDraft = :false')
         ->setParameter('false', false)
-        ->setParameter('category', $category)
+        ->setParameter('category', $slug)
         ->orderBy('r.name', 'ASC')
         ->getQuery()
         ->getResult();

@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
@@ -59,10 +60,18 @@ class Comment
     private $user;
 
     /**
+     * @var \DateTime $createdAt
      * @ORM\Column(type="datetime")
-     *  @Groups({"recipe_comment"})
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
+
+    /**
+     * @var \DateTime $updatedAt
+     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -182,10 +191,8 @@ class Comment
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        $this->createdAt = $createdAt;
-
-        return $this;
+        return $this->updatedAt;
     }
 }

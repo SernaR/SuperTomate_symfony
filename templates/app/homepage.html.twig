@@ -36,12 +36,12 @@
             <div class="container pt-3">
                 <div class="row p-3">
                     <div id="recette-img" class="col">
-                        <img class="img-fluid card" alt={{ headline.recipe.name }} src={{ asset(headline.recipe.picture) }}>
+                        <img class="img-fluid card" alt={{ headline.recipe.name }} src={{ vich_uploader_asset(headline.recipe, 'imageFile') }}>
                     </div>
                     <div class="col text-center p-4">
                         <h3 class="text-center home-title-3 py-2">{{ headline.recipe.name }}</h3>
                         <p class="heroine">{{ headline.highlight.content }}</p>
-                        <a class="btn btn-danger py-3" href={{ path('app_recipe', { 'category': headline.recipe.category.name, 'slug': headline.recipe.slug, 'recipe': headline.recipe.id }) }}>Je découvre la recette</a>
+                        <a class="btn btn-danger py-3" href={{ path('app_recipe', { 'categorySlug': headline.recipe.category.slug, 'recipeSlug': headline.recipe.slug, 'recipe': headline.recipe.id }) }}>Je découvre la recette</a>
                     </div>
                 </div>
             </div>   

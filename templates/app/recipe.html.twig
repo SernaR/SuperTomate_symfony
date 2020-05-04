@@ -3,7 +3,7 @@
 {% block page %}
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ path('app_homepage')}}">Accueil</a></li>
-        <li class="breadcrumb-item"><a href="{{ path('app_category_recipes', { 'category': recipe.category.name }) }}">{{ recipe.category.name }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('app_category_recipes', { 'categorySlug': recipe.category.slug }) }}">{{ recipe.category.name }}</a></li>
         <li class="breadcrumb-item active">{{ recipe.name }}</li>
     </ol>
     <div class="card px-4 mb-3">
@@ -11,27 +11,27 @@
          {% include 'app/components/hearts.html.twig' with {'likes': recipe.likes } %}
     <div class="row d-flex justify-content-around p-2">
         <div>               
-            <p>Difficulté : {{ recipe.difficulty.name }}</p>
+            <p><img src={{ asset('/images/app/icon-difficulty.png') }}> {{ recipe.difficulty.name }}</p>
         </div>
         <div>               
-            <p>Nombre de personnes : {{ recipe.serve }}</p>
+            <p><img src={{ asset('/images/app/icon-part.png') }}> {{ recipe.serve }}</p>
         </div>
         <div>               
-            <p>Préparation : {{ recipe.making }} mn</p>
+            <p><img src={{ asset('/images/app/icon-time.png') }}> {{ recipe.making }} mn</p>
         </div>
         {% if recipe.cook != 0 %}
             <div>               
-                <p>Temps de cuisson : {{ recipe.cook }} mn</p>
+                <p><img src={{ asset('/images/app/icon-cook.png') }}> {{ recipe.cook }} mn</p>
             </div>
         {% endif %}   
         {% if recipe.wait != 0 %}
             <div>               
-                <p>Temps de repos : {{ recipe.wait }} mn</p>
+                <p><img src={{ asset('/images/app/icon-pause.png') }}> {{ recipe.wait }} mn</p>
             </div>
         {% endif %}    
     </div>
     <div class="row p-3">
-        <div id="recette-img" class="col"><img class="img-fluid card" alt="Responsive image recette" src={{ asset(recipe.picture) }}></div>
+        <div id="recette-img" class="col"><img class="img-fluid card" alt="Responsive image recette" src={{ vich_uploader_asset(recipe, 'imageFile') }}></div>
         <div class="col card py-3 lead">
             <h2 class="display-4 text-center  mb-4 recipe">Ingrédients</h2>
             <div class="container pt-3">
