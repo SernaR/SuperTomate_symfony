@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Recipe;
 use App\Repository\RecipeHighlightRepository;
 use App\Repository\RecipeRepository;
+use App\Repository\TagRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -22,11 +23,12 @@ class AppController extends AbstractController
     /**
      * @Route("/{categorySlug}/recettes", name="app_category_recipes")
      */
-    public function getCategoryRecipes(RecipeRepository $recipeRepository, $categorySlug) 
+    public function getCategoryRecipes(RecipeRepository $recipeRepository, TagRepository $tagRepository, $categorySlug) 
     {
         $recipes = $recipeRepository->recipesPerCategory($categorySlug);
         return $this->render('app/categoryRecipes.html.twig', [
             'recipes' => $recipes,
+            'tags' => $tagRepository->findAll(),
             'category' => $recipes ? $recipes[0]->getcategory()->getName() : $categorySlug
         ]);
     }

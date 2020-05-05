@@ -1,7 +1,7 @@
 <div class={{ col }}>
     <div class="card mb-4 text-center card-2">
         <h3 class="card-header">{{ recipe.name }}</h3>
-        <a href={{ path('app_recipe', { 'categorySlug': recipe.category.slug, 'recipeSlug': recipe.slug, 'recipe': recipe.id }) }}><img src={{ vich_uploader_asset(recipe, 'imageFile') }} class="img-fluid" alt={{ recipe.name }}"></a>
+        <a href={{ path('app_recipe', { 'categorySlug': recipe.category.slug, 'recipeSlug': recipe.slug, 'recipe': recipe.id }) }}><img src={{ vich_uploader_asset(recipe, 'imageFile') }} class="img-fluid" alt={{ recipe.name }}></a>
         <div class="card-body">
             {% for tag in recipe.tags %}
                 <p class="card-text"><span class="badge badge-secondary ml-1">{{ tag.name }}</span></p>

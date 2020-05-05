@@ -1,0 +1,16 @@
+{% extends 'pageTemplate.html.twig' %}
+{% block page %}
+    <div class="card px-4 mb-3">
+		{% include 'app/components/jumbotron.html.twig' with {'title': 'Oops! un problème est survenue' } %}
+        <div class="container mt-3">
+            <h2>Le serveur retourne un "{{ status_code }} {{ status_text }}".</h2>
+
+            <div>
+                Quelque chose est cassé. 
+                Envoyez-nous un e-mail à l'adresse rserna@outlook.fr et indiquez-nous ce que vous faisiez lorsque cette erreur s'est produite. 
+                Nous allons le réparer dès que possible. 
+                Désolé pour tout inconvénient causé.
+            </div>
+        </div>
+    </div>
+{% endblock %}

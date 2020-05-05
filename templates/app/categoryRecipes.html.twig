@@ -6,9 +6,7 @@
       <li class="breadcrumb-item active">{{ category }}</li>
    </ol>
    <div class="card px-4 mb-3">
-      <div class="jumbotron jum-cat">
-         <h1 class="display-4 text-center">{{ category }}</h1>
-      </div>
+      {% include 'app/components/jumbotron.html.twig' with {'title': category } %}
       <div class="row">
          <div class="col-sm-3 bg-light border-right">
             {% include 'app/components/aside.html.twig' %}
