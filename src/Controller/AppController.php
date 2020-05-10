@@ -12,21 +12,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AppController extends AbstractController
 {
     /**
-     * @Route("/{categorySlug}/{recipeSlug}/{recipe}", name="app_recipe")
+     * @Route("recettes/{categorySlug}/{recipeSlug}/{recipe}", name="app_recipe")
      */
     public function getRecipe(RecipeRepository $recipeRepository, Recipe $recipe) {
-        return $this->render('app/recipe.html.twig', [
+        return $this->render('app/recipePages/recipe.html.twig', [
             'recipe' => $recipeRepository->find($recipe)
         ]);
     }
 
     /**
-     * @Route("/{categorySlug}/recettes", name="app_category_recipes")
+     * @Route("recettes/{categorySlug}", name="app_category_recipes")
      */
     public function getCategoryRecipes(RecipeRepository $recipeRepository, TagRepository $tagRepository, $categorySlug) 
     {
         $recipes = $recipeRepository->recipesPerCategory($categorySlug);
-        return $this->render('app/categoryRecipes.html.twig', [
+        return $this->render('app/recipePages/categoryRecipes.html.twig', [
             'recipes' => $recipes,
             'tags' => $tagRepository->findAll(),
             'category' => $recipes ? $recipes[0]->getcategory()->getName() : $categorySlug
@@ -43,6 +43,4 @@ class AppController extends AbstractController
             'headline' =>$recipeHighlightRepository->headline()
         ]);
     }
-
-    
 }

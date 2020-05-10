@@ -9,6 +9,9 @@ img {
 	max-width: 100%;
 	height: auto;}
 
+.nopadding-ul {
+	padding-inline-start:0;
+}
 /*-----Divers-----*/
 .pointer {cursor: pointer;}
 .pages-back {

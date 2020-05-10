@@ -38,7 +38,7 @@
                 <div class="mb-1">
                     <ul>
                         {% for ingredient in recipe.ingredients %}
-                            <li class="food">{{ ingredient.content }}</li>
+                            <li class="food">{{ ingredient.content|nl2br }}</li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -50,8 +50,8 @@
         <div class="container py-3"> 
             {% for step in recipe.steps %}
                 <div class="card p-3 mb-3">
-                    <h3>Étape 1</h3>
-                    <p class="card-text lead" style="white-space: pre;">{{ step.content }}</p>
+                    <h3>Étape {{ step.rank }}</h3>
+                    <p class="card-text">{{ step.content|nl2br }}</p>
                 </div>
              {% endfor %}    
         </div>

@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+//use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LikeRepository")
@@ -21,7 +21,7 @@ class Like
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"recipe"})
+     * 
      */
     private $record;
 
@@ -32,7 +32,7 @@ class Like
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="likes")
-     * @Groups({"recipe"})
+     * 
      */
     private $user;
 

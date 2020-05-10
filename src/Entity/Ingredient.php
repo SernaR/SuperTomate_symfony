@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+//use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\IngredientRepository")
@@ -20,13 +20,13 @@ class Ingredient
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"recipe"})
+     *
      */
     private $rank;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"recipe"})
+     * 
      */
     private $content;
 
@@ -34,6 +34,11 @@ class Ingredient
      * @ORM\ManyToOne(targetEntity="App\Entity\Recipe", inversedBy="ingredients")
      */
     private $recipe;
+
+    public function __toString()
+    {
+        return $this->content;
+    }
 
     public function getId(): ?int
     {

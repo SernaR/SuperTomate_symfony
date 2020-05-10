@@ -26,6 +26,11 @@ class RecipeHighlight
      */
     private $highlight;
 
+    public function __toString()
+    {
+        return '-';
+    }
+
     public function getId(): ?int
     {
         return $this->id;

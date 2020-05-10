@@ -9,6 +9,8 @@ easy_admin:
             - "@EasyAdmin/form/bootstrap_4.html.twig"
             - "@FOSCKEditor/Form/ckeditor_widget.html.twig"
         menu:
+            - { label: 'Modération' }
+            - { entity: 'RecipeModeration', label: 'Recettes', icon: 'book' } 
             - { label: 'Paramètres' }
             - { entity: 'Category', label: 'Catégories', icon: 'tag' }
             - { entity: 'Difficulty', label: 'Difficultés', icon: 'tag' }
@@ -24,6 +26,31 @@ easy_admin:
     formats:
         datetime: 'd/m/Y à H:i'
     entities:
+        RecipeModeration:
+            class: App\Entity\Recipe
+            label: 'Recettes'
+            disabled_actions: ['new','search']
+            list:
+                fields:
+                    - id
+                    - { property: 'name', label: 'Nom' }
+                    - { property: 'category', label: 'Catégorie'}
+                    - { property: 'difficulty', label: 'Difficulté'}
+                    - { property: 'picture', label: 'Image', type: 'image', base_path: '%app.path.pictures%' }
+                    - { property: 'createdAt', label: 'Créé' }
+                sort: ['createdAt', 'desc']
+            form:
+                fields:
+                    - { property: 'name', label: 'Nom' }
+                    - { property: 'serve', label: 'Portion' }
+                    - { property: 'making', label: 'Préparation' }
+                    - { property: 'cook', label: 'Cuisson' }
+                    - { property: 'wait', label: 'Pause' }
+                    - { property: 'imageFile', type: 'vich_image', label: 'Image' }
+                    - user
+                    - { property: 'category', label: 'Catégorie', type: 'entity', type_options: { class: 'App\Entity\Category' }}
+                    - { property: 'difficulty', label: 'Difficulté', type: 'entity', type_options: { class: 'App\Entity\Difficulty' }}
+                    - { property: 'tags', label: 'Mots Clés', type: 'entity', type_options: { class: 'App\Entity\Tag', multiple: true,by_reference: false, attr: { data-widget: 'select2' }}}      
         Category:
             class: App\Entity\Category
             label: 'Catégorie'

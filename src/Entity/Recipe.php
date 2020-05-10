@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Serializer\Annotation\Groups;
+//use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\File;
@@ -21,47 +21,47 @@ class Recipe
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"recipes_per_category", "homepage"})
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"recipes_per_category", "recipe", "homepage"})
+     * 
      * @Assert\NotBlank(message="Le nom  doit être renseigné")
      */
     private $name;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"recipe"})
+     * 
      * @Assert\NotBlank(message="Le nombre de part doit être renseigné")
      */
     private $serve;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"recipe"})
+     * 
      * @Assert\NotBlank(message="Le temps de préparation doit être renseigné")
      */
     private $making;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"recipe"})
+     * 
      */
     private $cook = 0;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"recipe"})
+     * 
      */
     private $wait = 0;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=255)
-     * @Groups({"recipes_per_category", "recipe", "homepage"})
+     *
      *
      */
     private $picture;
@@ -74,7 +74,7 @@ class Recipe
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"recipe"})
+     * 
      */
     private $isDraft = false;
 
@@ -86,7 +86,7 @@ class Recipe
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="recipes")
-     * @Groups({"recipe","homepage"})
+     * 
      * @Assert\NotBlank(message="La catégorie doit être renseigné")
      */
     private $category;
@@ -99,41 +99,41 @@ class Recipe
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Difficulty", inversedBy="recipe")
-     * @Groups({"recipe"})
+     * 
      * @Assert\NotBlank(message="La difficulté doit être renseigné")
      */
     private $difficulty;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Ingredient", mappedBy="recipe")
-     * @Groups({"recipe"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Ingredient", mappedBy="recipe", cascade={"persist"})
+     * 
      * @Assert\NotBlank(message="Les Ingrédients doivent être renseignés")
      */
     private $ingredients;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Like", mappedBy="recipe")
-     * @Groups({"recipe"})
+     * 
      */
     private $likes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Step", mappedBy="recipe")
-     * @Groups({"recipe"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Step", mappedBy="recipe", cascade={"persist"})
+     * 
      * @Assert\NotBlank(message="Les étapesl doivent être renseignées")
      */
     private $steps;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", mappedBy="recipes")
-     * @Groups({"recipes_per_category", "recipe", "homepage"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", mappedBy="recipes", cascade={"persist"})
+     * 
      * @Assert\NotBlank(message="Les tags doivent être renseignés")
      */
     private $tags;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="recipes")
-     * @Groups({"recipe"})
+     * 
      */
     private $user;
 
