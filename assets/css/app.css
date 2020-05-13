@@ -11,6 +11,9 @@ img {
 .nopadding-ul {
 	padding-inline-start:0;
 }
+a{
+	text-decoration: none!important;
+}
 /*-----Divers-----*/
 .pointer {cursor: pointer;}
 .pages-back {

@@ -60,8 +60,7 @@ class Recipe
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=255)
-     *
+     * @ORM\Column(type="string", length=255, nullable=true)
      *
      */
     private $picture;
@@ -76,7 +75,7 @@ class Recipe
      * @ORM\Column(type="boolean")
      * 
      */
-    private $isDraft = false;
+    private $isDraft;
 
     /**
      * @ORM\Column(length=128, unique=true)
@@ -156,8 +155,13 @@ class Recipe
      */
     private $updatedAt;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isChecked = false;
+
     public function __construct()
-    {
+    {   
         $this->comments = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
         $this->likes = new ArrayCollection();
@@ -506,6 +510,18 @@ class Recipe
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
+    }
+
+    public function getIsChecked(): ?bool
+    {
+        return $this->isChecked;
+    }
+
+    public function setIsChecked(bool $isChecked): self
+    {
+        $this->isChecked = $isChecked;
+
+        return $this;
     }
 
 }

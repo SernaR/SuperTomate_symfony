@@ -20,6 +20,8 @@ const filterByTag = (tag) => {
         tags.splice(pos, 1);
     }
 
+    console.log(tags)
+
     $('#filtered-list div').show()
     $('#filtered-list').find('.card-body').each( function() {
         var isTagFound = false  
@@ -30,7 +32,6 @@ const filterByTag = (tag) => {
                 return    
             } 
         });
-
         filterRecipe( isTagFound, $(this) )
     });
 }

@@ -1,4 +1,4 @@
-{% extends 'pageTemplate.html.twig' %}
+{% extends 'app/appTemplates/pageTemplate.html.twig' %}
 
 {% block page %}
 	<div class="card px-4 mb-3">
@@ -90,8 +90,8 @@
 			</div>
          <hr>
          <div class="container text-center my-5">
-				<button type="submit" class="btn btn-primary mx-1">Ajouter  ma recette</button>
-				<button class="btn btn-outline-secondary">Enregistrer le brouillon</button>
+				{{ form_widget(form.save, { 'label': 'Ajouter  ma recette',  'attr' : {'class' : "btn btn-primary mx-1"} }) }}
+				{{ form_widget(form.saveDraft, { 'label': 'Enregistrer le brouillon',  'attr' : {'class' : "btn btn-outline-secondary"} }) }}
 			</div>
 		{{ form_end(form) }}
 	</div>

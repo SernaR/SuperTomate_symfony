@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-12">
+    <div class="col-12 text-center">
         {% if likes is empty %}
              {% set likeAvg = 0 %}  
         {% else %}
@@ -9,10 +9,8 @@
             {% endfor %}
             {% set likeAvg = count/(likes|length) %}  
         {% endif %}
-        <p class="text-center mb-4 ">
-            {% for i in 1..5 %}
-                    <i class="{{ i > likeAvg ? 'far' : 'fas' }} fa-heart text-danger mx-1" aria-hidden="true"></i>
-            {% endfor %}       
-        </p>       
+        {% for i in 1..5 %}
+                <i class="{{ i > likeAvg ? 'far' : 'fas' }} fa-heart text-danger mx-1" aria-hidden="true"></i>
+        {% endfor %}                
     </div>
 </div>

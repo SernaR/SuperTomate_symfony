@@ -1,4 +1,4 @@
-{% extends 'pageTemplate.html.twig' %}
+{% extends 'app/appTemplates/pageTemplate.html.twig' %}
 
 {% block page %}
     <ol class="breadcrumb">
@@ -7,8 +7,15 @@
         <li class="breadcrumb-item active">{{ recipe.name }}</li>
     </ol>
     <div class="card px-4 mb-3">
+        <div class="row mt-2 d-flex justify-content-end">
+            {% if recipe.isDraft %}
+                <a href={{ path('recipe_edit', { 'recipe': recipe.id }) }} class="mx-3 badge badge-secondary pointer">Brouillon</a>
+            {% else %}
+                <a href={{ path('recipe_edit', { 'recipe': recipe.id }) }} class="mx-3 badge badge-primary pointer">modifier</a>
+            {% endif %}
+        </div>
         <h1 class="display-2 text-center py-4">{{ recipe.name }}</h1>
-         {% include 'app/components/hearts.html.twig' with {'likes': recipe.likes } %}
+        {% include 'app/components/hearts.html.twig' with {'likes': recipe.likes } %}
     <div class="row d-flex justify-content-around p-2">
         <div>               
             <p><img src={{ asset('/images/app/icon-difficulty.png') }}> {{ recipe.difficulty.name }}</p>
@@ -38,7 +45,7 @@
                 <div class="mb-1">
                     <ul>
                         {% for ingredient in recipe.ingredients %}
-                            <li class="food">{{ ingredient.content|nl2br }}</li>
+                            <li class="food">{{ ingredient.content }}</li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -51,7 +58,7 @@
             {% for step in recipe.steps %}
                 <div class="card p-3 mb-3">
                     <h3>Étape {{ step.rank }}</h3>
-                    <p class="card-text">{{ step.content|nl2br }}</p>
+                    <p class="card-text">{{ step.content|raw }}</p>
                 </div>
              {% endfor %}    
         </div>

@@ -32,8 +32,9 @@
                         {% if is_granted('ROLE_ADMIN') %}
                             <li className="nav-item"><a class="nav-link" href="/admin">Dashboard</a></li>
                         {% endif %}
+                        <li class="nav-item"><a class="nav-link" href={{ path('recipe_user') }}>{{ app.user.name }}</a></li>
                         <li class="nav-item">
-                            <a href={{ path('recipe_edit', { 'recipe': 60 }) }} class="btn btn-outline-success mx-2">Nouvelle recette</a>
+                            <a href={{ path('recipe_add') }} class="btn btn-outline-success mx-2">Nouvelle recette</a>
                         </li>    
                         <li className="nav-item"><a class="btn btn-danger" href="/deconnexion">Déconnexion</a></li>
                     {% else %}

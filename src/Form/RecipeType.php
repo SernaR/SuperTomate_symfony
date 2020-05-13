@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class RecipeType extends AbstractType
@@ -22,7 +23,7 @@ class RecipeType extends AbstractType
             ->add('making')
             ->add('cook')
             ->add('wait')
-            ->add('imageFile', FileType::class)
+            ->add('imageFile', FileType::class, ['required'=> false])
             ->add('category', EntityType::class, [
                 'class'=> Category::class,
                 'choice_label'=>'name'
@@ -44,7 +45,9 @@ class RecipeType extends AbstractType
                 'by_reference' => false,
                 'allow_add' => true,
                 'allow_delete' => true,
-            ]);
+            ])
+            ->add('save', SubmitType::class, ['label' => 'Ajouter ma recette'])
+            ->add('saveDraft', SubmitType::class, ['label' => 'Enregistrer le brouillon']);
         ;
     }
 

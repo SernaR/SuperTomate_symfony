@@ -40,7 +40,7 @@
                     </div>
                     <div class="col text-center p-4">
                         <h3 class="text-center home-title-3 py-2">{{ headline.recipe.name }}</h3>
-                        <p class="heroine">{{ headline.highlight.content }}</p>
+                        <p class="heroine">{{ headline.highlight.content|raw }}</p>
                         <a class="btn btn-danger py-3" href={{ path('app_recipe', { 'categorySlug': headline.recipe.category.slug, 'recipeSlug': headline.recipe.slug, 'recipe': headline.recipe.id }) }}>Je découvre la recette</a>
                     </div>
                 </div>
