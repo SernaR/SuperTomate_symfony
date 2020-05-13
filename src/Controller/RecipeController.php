@@ -33,7 +33,7 @@ class RecipeController extends AbstractController
         foreach ($recipe->getSteps() as $step) {
             $originalSteps->add($step);
         }
-    
+        
         return $this->setRecipe($request, $recipe, $originalIngredients, $originalSteps);
     }
 

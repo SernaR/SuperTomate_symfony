@@ -1,4 +1,3 @@
-
 /*-----GÉNÉRAL-----*/
 body{
 	font-family: 'Quicksand', sans-serif;
@@ -15,7 +14,8 @@ img {
 /*-----Divers-----*/
 .pointer {cursor: pointer;}
 .pages-back {
-	background-image: url('../images/app/fond-visiteur.jpg');
+    /*background-image: url('/img/fond-visiteur.jpg');*/
+    background-image: url('/images/app/fond-visiteur.jpg');
 	min-height: 100vh; 
 	padding-bottom: 1em;
 	background-attachment: fixed;}
@@ -104,7 +104,8 @@ ul{list-style-type: none;}
 /*rajouter class "home-title-2" sur les h2 sauf h2-jumbotron*/
 /*rajouter "home-title-3" sur titre de la recette héroine*/
 .tomato{
-	background-image: url('../images/app/tomathome.jpg');
+    /*background-image: url('/img/tomathome.jpg');*/
+    background-image: url('/images/app/tomathome.jpg');
 	background-size: cover;
 	background-position: center center;
 	height:700px;
