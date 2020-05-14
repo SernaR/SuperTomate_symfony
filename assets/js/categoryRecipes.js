@@ -1,6 +1,8 @@
 
 
 const tags = []
+let name = ''
+let $cards = $('.filtered-list')
 
 exports.setRecipeByCategoryFilters = () => {
     $('.tag-filter').change(function() { filterByTag(this) })
@@ -9,7 +11,7 @@ exports.setRecipeByCategoryFilters = () => {
 }
 
 /**
- * filter recipe by tag params
+ * filter recipe by tag selected in checkbox
  */
 const filterByTag = (tag) => {
     if ($(tag).is(':checked')) {
@@ -19,45 +21,39 @@ const filterByTag = (tag) => {
         var pos = tags.indexOf(tag.value);
         tags.splice(pos, 1);
     }
-
-    console.log(tags)
-
-    $('#filtered-list div').show()
-    $('#filtered-list').find('.card-body').each( function() {
-        var isTagFound = false  
-        $(this).find('span').each( function() {
-            var isTagSelected = tags.includes( $(this).text() )
-            if(isTagSelected){
-                isTagFound = true
-                return    
-            } 
-        });
-        filterRecipe( isTagFound, $(this) )
-    });
+    filterRecipe ()
 }
 
 /**
  * filter recipe by name keyed in input
  */
 const filterByName = (input) => {
-    var value = $(input).val();
-
-    $('#filtered-list div').show()
-    $('#filtered-list').find('h3').each( function() {
-        var isNameFound = $(this).text().toLowerCase().includes(value)
-        filterRecipe( isNameFound, $(this) )
-    });
+    name = $(input).val();
+    filterRecipe()
 }
 
 /**
- * filter recipe with params displayed
- * @param  isItemFound 
- * @param  context 
+ * filter recipe if name or tag selected
  */
-function filterRecipe (isItemFound, $context) {
-    if(!isItemFound){
-        $context.parent().parent().hide();
-    }
+function filterRecipe () {
+
+    $cards.show()
+    $cards.each(function() {
+
+        const isNameFound = 
+            $(this).find('.js-recipeName').text().toLowerCase().includes(name) 
+            ||
+            $(this).find('.js-recipeName').text() === ""
+
+        let isTagFound = false
+        $(this).find('.js-recipeTags').each( function() {
+           if ( tags.includes($(this).text()) && !isTagFound ) isTagFound = !isTagFound   
+        })
+
+        if((!isTagFound && tags.length > 0) || !isNameFound){ 
+            $(this).hide()
+        }
+    })
 }
 
 /**

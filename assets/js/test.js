@@ -1,9 +1,7 @@
 
-var tags = []
-const filteredRecipe = []
+const tags = []
 
 exports.setRecipeByCategoryFilters = () => {
-    console.log('plop')
     $('.tag-filter').change(function() { filterByTag(this) })
     $('#recipeName-filter').focus().keyup( function() { filterByName(this) })
     $('#clear-filter').click( function() { clearFilters() })
@@ -27,12 +25,10 @@ const filterByTag = (tag) => {
         $(this).find('span').each( function() {
             var isTagSelected = tags.includes( $(this).text() )
             if(isTagSelected){
-                console.log(this.dataset.name)
                 isTagFound = true
                 return    
             } 
         });
-
         filterRecipe( isTagFound, $(this) )
     });
 }
@@ -45,7 +41,6 @@ const filterByName = (input) => {
 
     $('#filtered-list div').show()
     $('#filtered-list').find('h3').each( function() {
-
         var isNameFound = $(this).text().toLowerCase().includes(value)
         filterRecipe( isNameFound, $(this) )
     });
@@ -59,8 +54,6 @@ const filterByName = (input) => {
 function filterRecipe (isItemFound, $context) {
     if(!isItemFound){
         $context.parent().parent().hide();
-    }else{
-
     }
 }
 
@@ -72,6 +65,4 @@ const clearFilters = () => {
     $('#recipeName-filter').val('')
     $('.tag-filter').prop('checked', false);
 }
-
-
 
