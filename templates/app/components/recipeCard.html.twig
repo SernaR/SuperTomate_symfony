@@ -8,7 +8,7 @@
                     <span class="badge badge-secondary ml-1 js-recipeTags">{{ tag.name }}</span>
                 {% endfor %}
             </p>    
-            <a class="btn btn-outline-primary btn-sm" href={{ path('app_recipe', { 'categorySlug': recipe.category.slug, 'recipeSlug': recipe.slug, 'recipe': recipe.id }) }}>Visualiser</a>
+            <a class="btn btn-outline-primary btn-sm" href={{ path('app_recipe', { 'categorySlug': recipe.category.slug, 'recipeSlug': recipe.slug }) }}>Visualiser</a>
         </div>
     </div>
 </div>

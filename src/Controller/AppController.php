@@ -3,20 +3,43 @@
 namespace App\Controller;
 
 use App\Entity\Recipe;
-use App\Repository\RecipeHighlightRepository;
-use App\Repository\RecipeRepository;
+use App\Entity\Comment;
+use App\Form\CommentType;
 use App\Repository\TagRepository;
+use App\Repository\RecipeRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\RecipeHighlightRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AppController extends AbstractController
 {
     /**
-     * @Route("recettes/{categorySlug}/{recipeSlug}/{recipe}", name="app_recipe")
+     * @Route("recettes/{categorySlug}/{recipeSlug}", name="app_recipe")
      */
-    public function getRecipe(RecipeRepository $recipeRepository, Recipe $recipe) {
+    public function getRecipe(Request $request, EntityManagerInterface $em, RecipeRepository $recipeRepository, $recipeSlug) {
+        
+        $recipe = $recipeRepository->findOneBy(['slug' => $recipeSlug]);
+        $comment = new Comment();
+
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+    
+            $recipe->addComment($comment);        
+            $em->flush();
+
+            return $this->redirectToRoute('app_recipe', [
+                'categorySlug' => $recipe->getCategory()->getSlug(), 
+                'recipeSlug' => $recipeSlug, 
+            ]);
+        }
+
         return $this->render('app/recipePages/recipe.html.twig', [
-            'recipe' => $recipeRepository->find($recipe)
+            'form' => $form->createView(),
+            'recipe' => $recipe
         ]);
     }
 

@@ -16,51 +16,87 @@
         </div>
         <h1 class="display-2 text-center py-4">{{ recipe.name }}</h1>
         {% include 'app/components/hearts.html.twig' with {'likes': recipe.likes } %}
-    <div class="row d-flex justify-content-around p-2">
-        <div>               
-            <p><img src={{ asset('/images/app/icon-difficulty.png') }}> {{ recipe.difficulty.name }}</p>
-        </div>
-        <div>               
-            <p><img src={{ asset('/images/app/icon-part.png') }}> {{ recipe.serve }}</p>
-        </div>
-        <div>               
-            <p><img src={{ asset('/images/app/icon-time.png') }}> {{ recipe.making }} mn</p>
-        </div>
-        {% if recipe.cook != 0 %}
+        <div class="row d-flex justify-content-around p-2">
             <div>               
-                <p><img src={{ asset('/images/app/icon-cook.png') }}> {{ recipe.cook }} mn</p>
+                <p><img src={{ asset('/images/app/icon-difficulty.png') }}> {{ recipe.difficulty.name }}</p>
             </div>
-        {% endif %}   
-        {% if recipe.wait != 0 %}
             <div>               
-                <p><img src={{ asset('/images/app/icon-pause.png') }}> {{ recipe.wait }} mn</p>
+                <p><img src={{ asset('/images/app/icon-part.png') }}> {{ recipe.serve }}</p>
             </div>
-        {% endif %}    
-    </div>
-    <div class="row p-3">
-        <div id="recette-img" class="col"><img class="img-fluid card" alt="Responsive image recette" src={{ vich_uploader_asset(recipe, 'imageFile') }}></div>
-        <div class="col card py-3 lead">
-            <h2 class="display-4 text-center  mb-4 recipe">Ingrédients</h2>
-            <div class="container pt-3">
-                <div class="mb-1">
-                    <ul>
-                        {% for ingredient in recipe.ingredients %}
-                            <li class="food">{{ ingredient.content }}</li>
-                        {% endfor %}
-                    </ul>
+            <div>               
+                <p><img src={{ asset('/images/app/icon-time.png') }}> {{ recipe.making }} mn</p>
+            </div>
+            {% if recipe.cook != 0 %}
+                <div>               
+                    <p><img src={{ asset('/images/app/icon-cook.png') }}> {{ recipe.cook }} mn</p>
+                </div>
+            {% endif %}   
+            {% if recipe.wait != 0 %}
+                <div>               
+                    <p><img src={{ asset('/images/app/icon-pause.png') }}> {{ recipe.wait }} mn</p>
+                </div>
+            {% endif %}    
+        </div>
+        <div class="row p-3">
+            <div id="recette-img" class="col"><img class="img-fluid card" alt="Responsive image recette" src={{ vich_uploader_asset(recipe, 'imageFile') }}></div>
+            <div class="col card py-3 lead">
+                <h2 class="display-4 text-center  mb-4 recipe">Ingrédients</h2>
+                <div class="container pt-3">
+                    <div class="mb-1">
+                        <ul>
+                            {% for ingredient in recipe.ingredients %}
+                                <li class="food">{{ ingredient.content }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
+        <section class="pt-3">
+            <h2 class="display-4 text-center mb-4 recipe">Les étapes de la recette</h2>
+            <div class="container py-3"> 
+                {% for step in recipe.steps %}
+                    <div class="card p-3 mb-3">
+                        <h3>Étape {{ step.rank }}</h3>
+                        <p class="card-text">{{ step.content|raw }}</p>
+                    </div>
+                {% endfor %}    
+            </div>
+        </section>
     </div>
-    <section class="pt-3">
-        <h2 class="display-4 text-center mb-4 recipe">Les étapes de la recette</h2>
-        <div class="container py-3"> 
-            {% for step in recipe.steps %}
-                <div class="card p-3 mb-3">
-                    <h3>Étape {{ step.rank }}</h3>
-                    <p class="card-text">{{ step.content|raw }}</p>
+    {% if app.user %}      
+        <div class="container card bg-white p-3 mb-3">
+            <div class="container">
+                <h2 class="mb-4">Laissez un commentaire</h2>
+                {{ form_start(form) }}
+                    <div class="form-row">
+                        {{ form_label(form.content, 'Votre commentaire') }}
+                        {{ form_widget(form.content,{ 'attr': {'rows': '5'} }) }}
+                    </div>
+                    <div class="row mt-3 justify-content-end">
+                        <button type="submit" class="btn btn-outline-danger btn-sm mr-3">Envoyer</button>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div> 
+    {% endif %}  
+    <div class="container card bg-white p-3 mb-3">
+        <div class="container">
+            {% if recipe.comments|length > 1 %}
+                {% set pluriel = "s" %}
+            {% else %}
+                 {% set pluriel = "" %}    
+            {% endif %}
+            <h2 class=" mb-4">{{ recipe.comments|length }} commentaire{{ pluriel }}</h2>
+            {% for comment in recipe.comments %}
+                <div class="list-group-item ">
+                    <div class="d-flex w-100 justify-content-between my-2">
+                        <h3>{{ comment.recipe.user.name }}</h3><small class="text-muted">Le {{ comment.createdAt|date("m/d/Y") }}</small>
+                    </div>
+                    <p class="mb-2">{{comment.content|raw }}</p>
+                
                 </div>
-             {% endfor %}    
+            {% endfor %}
         </div>
-    </section>            
+    </div>
 {% endblock %}

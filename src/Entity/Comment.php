@@ -76,6 +76,9 @@ class Comment
     public function __construct()
     {
         $this->subComment = new ArrayCollection();
+        $this->isChecked = false;
+        $this->isBlocked = false;
+        $this->isReaded = false;
     }
 
     public function getId(): ?int
