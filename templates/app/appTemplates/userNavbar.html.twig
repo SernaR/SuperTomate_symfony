@@ -2,16 +2,16 @@
 
 {% block page %}
 	<div class="card px-4 mb-3">
-		{% include 'app/components/jumbotron.html.twig' with {'title': ['Bienvenue ',app.user.name]|join(' ') } %}
+		{% include 'app/partials/jumbotron.html.twig' with {'title': ['Bienvenue ',app.user.name]|join(' ') } %}
 		<ul class="nav justify-content-center mb-2">
 			<li class="nav-item">
-				<a class="nav-link pointer active">Recettes</a>
+				<a href={{ path('user_recipes') }} class="nav-link pointer {% if current_menu is defined and current_menu =='user' %}active{% endif %}">Recettes</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link pointer">Commentaires</a>
+				<a href={{ path('user_comments') }} class="nav-link pointer {% if current_menu is defined and current_menu =='comments' %}active{% endif %}">Commentaires</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link pointer">Infos</a>
+				<a href={{ path('user_data') }} class="nav-link pointer {% if current_menu is defined and current_menu =='data' %}active{% endif %}">Infos</a>
 			</li>
 		</ul>
 		{% block tab %}{% endblock %}

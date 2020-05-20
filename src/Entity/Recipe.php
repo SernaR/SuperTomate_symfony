@@ -160,6 +160,7 @@ class Recipe
      */
     private $isChecked = false;
 
+
     public function __construct()
     {   
         $this->comments = new ArrayCollection();
@@ -174,6 +175,27 @@ class Recipe
     {
         return $this->name;
     } 
+
+    public function rate()
+    {
+        $likes = $this->likes;
+        if(count($likes) === 0 ){
+             return 0;
+        }
+
+        $likeSum = 0;
+        foreach ($likes as $like) {
+            $likeSum += $like->getRecord();
+        }
+        return floor( $likeSum/count($likes) );
+    }
+
+    public function moderatedComments()
+    {
+        return $this->comments->filter( function (Comment $comment) {
+            return $comment->getIsBlocked() === false;
+        });
+    }
 
     public function getId(): ?int
     {

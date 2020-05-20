@@ -2,53 +2,66 @@
 
 namespace App\Controller;
 
-use App\Entity\Recipe;
+use App\Entity\Comment;
+use App\Form\CommentType;
+
+use App\Repository\TagRepository;
 use App\Repository\RecipeRepository;
-use App\Service\RecipeGenerator;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * @Route("recettes")
+ */
 class RecipeController extends AbstractController
 {
+    const MESSAGE =  'votre commentaire va être soumis à moderation';
+
     /**
-     * @Route("utilisateur/recette/{recipe}", name="recipe_edit")
+     * @Route("/{categorySlug}/{recipeSlug}", name="app_recipe")  
+     * 
      */
-    public function editRecipe(Request $request, Recipe $recipe, RecipeGenerator $recipeGenerator)
-    {
-        $originalIngredients = new ArrayCollection();
-        foreach ($recipe->getIngredients() as $ingredient) {
-            $originalIngredients->add($ingredient);
+    public function getRecipe(Request $request, EntityManagerInterface $em, RecipeRepository $recipeRepository, $recipeSlug, $message = false) {
+         
+        $recipe = $recipeRepository->findOneBy(['slug' => $recipeSlug]);
+        $message = isset($_GET['message']) ? self::MESSAGE : null;
+
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+    
+            $recipe->addComment($comment);        
+            $em->flush();
+
+            return $this->redirectToRoute('app_recipe', [
+                'categorySlug' => $recipe->getCategory()->getSlug(), 
+                'recipeSlug' => $recipeSlug,
+                'message' => true
+            ]);
         }
 
-        $originalSteps = new ArrayCollection();
-        foreach ($recipe->getSteps() as $step) {
-            $originalSteps->add($step);
-        }
-        
-        return $recipeGenerator->setRecipe($request, $recipe, $originalIngredients, $originalSteps);
+        return $this->render('app/recipePages/recipe.html.twig', [
+            'form' => $form->createView(),
+            'message' => $message, 
+            'recipe' => $recipe
+        ]);
     }
 
     /**
-     * @Route("utilisateur/recette", name="recipe_add")
+     * @Route("/{categorySlug}", name="app_category_recipes")
      */
-    public function addRecipe(Request $request, RecipeGenerator $recipeGenerator)
+    public function getCategoryRecipes(RecipeRepository $recipeRepository, TagRepository $tagRepository, $categorySlug) 
     {
-        $recipe = new Recipe();
-        $recipe->setUser($this->getUser());
-
-        return $recipeGenerator->setRecipe($request, $recipe, null, null);
-    }
-
-    /**
-     * @Route("utilisateur/profil/recettes", name="recipe_user")
-     */
-    public function userRecipes(RecipeRepository $recipeRepository)
-    {
-        $user = $this->getUser();
-        $recipes = $recipeRepository->findBy(['user' => $user]);
-
-        return $this->render('app/userPages/userRecipes.html.twig', compact('recipes'));
+        $recipes = $recipeRepository->recipesPerCategory($categorySlug);
+        return $this->render('app/recipePages/categoryRecipes.html.twig', [
+            'recipes' => $recipes,
+            'tags' => $tagRepository->findAll(),
+            'category' => $recipes ? $recipes[0]->getcategory()->getName() : $categorySlug,
+            'current_menu' => $categorySlug
+        ]);
     }
 }

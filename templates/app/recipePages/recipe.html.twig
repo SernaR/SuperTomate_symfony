@@ -9,13 +9,19 @@
     <div class="card px-4 mb-3">
         <div class="row mt-2 d-flex justify-content-end">
             {% if recipe.isDraft %}
-                <a href={{ path('recipe_edit', { 'recipe': recipe.id }) }} class="mx-3 badge badge-secondary pointer">Brouillon</a>
+                <a href={{ path('user_recipe_edit', { 'recipe': recipe.id }) }} class="mx-3 badge badge-secondary pointer">Brouillon</a>
             {% else %}
-                <a href={{ path('recipe_edit', { 'recipe': recipe.id }) }} class="mx-3 badge badge-primary pointer">modifier</a>
+                <a href={{ path('user_recipe_edit', { 'recipe': recipe.id }) }} class="mx-3 badge badge-primary pointer">modifier</a>
             {% endif %}
         </div>
         <h1 class="display-2 text-center py-4">{{ recipe.name }}</h1>
-        {% include 'app/components/hearts.html.twig' with {'likes': recipe.likes } %}
+        <div class="row">
+            <div class="col-12 text-center">
+                {% for i in 1..5 %}
+                    <i class="{{ i > recipe.rate ? 'far' : 'fas' }} fa-heart text-danger mx-1" aria-hidden="true"></i>
+                {% endfor %}                
+            </div>
+        </div>
         <div class="row d-flex justify-content-around p-2">
             <div>               
                 <p><img src={{ asset('/images/app/icon-difficulty.png') }}> {{ recipe.difficulty.name }}</p>
@@ -65,30 +71,30 @@
         </section>
     </div>
     {% if app.user %}      
-        <div class="container card bg-white p-3 mb-3">
+        <div class="container card bg-white p-3 mb-3" id="new-comment">
             <div class="container">
-                <h2 class="mb-4">Laissez un commentaire</h2>
+                <h2 class="mb-4 recipe">Laissez un commentaire</h2>
                 {{ form_start(form) }}
                     <div class="form-row">
-                        {{ form_label(form.content, 'Votre commentaire') }}
                         {{ form_widget(form.content,{ 'attr': {'rows': '5'} }) }}
                     </div>
                     <div class="row mt-3 justify-content-end">
                         <button type="submit" class="btn btn-outline-danger btn-sm mr-3">Envoyer</button>
                     </div>
                 {{ form_end(form) }}
+                {% include 'app/partials/message.html.twig' with {'message': message } %}
             </div>
         </div> 
     {% endif %}  
     <div class="container card bg-white p-3 mb-3">
         <div class="container">
-            {% if recipe.comments|length > 1 %}
+            {% if recipe.moderatedComments|length > 1 %}
                 {% set pluriel = "s" %}
             {% else %}
                  {% set pluriel = "" %}    
             {% endif %}
-            <h2 class=" mb-4">{{ recipe.comments|length }} commentaire{{ pluriel }}</h2>
-            {% for comment in recipe.comments %}
+            <h2 class=" mb-4 recipe">{{ recipe.moderatedComments|length }} commentaire{{ pluriel }}</h2>
+            {% for comment in recipe.moderatedComments %}
                 <div class="list-group-item ">
                     <div class="d-flex w-100 justify-content-between my-2">
                         <h3>{{ comment.recipe.user.name }}</h3><small class="text-muted">Le {{ comment.createdAt|date("m/d/Y") }}</small>

@@ -1,0 +1,21 @@
+{% extends 'app/appTemplates/userNavbar.html.twig' %}
+
+{% block tab %}
+	<div class="container card bg-white p-3 mb-3">
+		<div class="container">
+			<h2 class="pt-3 mb-4 recipe">{{ comments|length }} commentaires</h2>
+            {% for comment in comments %}
+                <div class="list-group-item ">
+                    <div class="d-flex w-100 justify-content-between my-2">
+                        <h3>dans : {{comment.recipe.name}}</h3>
+                        <small class="text-muted">le {{ comment.createdAt|date("m/d/Y") }}</small>
+                    </div>
+                    <p class="mb-2">{{ comment.content|raw }}</p>
+                    <div class="row justify-content-end">
+                        <button class="btn btn-outline-dark btn-sm mr-3">Marquer comme lu</button>
+                    </div>
+                </div>
+            {% endfor %}
+		</div>
+	</div>
+{% endblock %}

@@ -7,12 +7,10 @@
 			<ul class="list-group">
                 {% for recipe in recipes %}
                     <div class="row">
-                        <div class="col-10">
+                        <div class="col-6">
                             <a href={{ path('app_recipe', { 'categorySlug': recipe.category.slug, 'recipeSlug': recipe.slug, 'recipe': recipe.id }) }}>
                                 <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                     <span>{{ recipe.name }}</span>
-                                    {% include 'app/components/hearts.html.twig' with {'likes': recipe.likes } %}
-                                    <span>0 Commentaires</span>
                                     {% if recipe.isDraft %}
                                         <span class="badge badge-secondary mx-1">Brouillon</span>
                                     {% else %}
@@ -22,7 +20,17 @@
                             </a>
                         </div>
                         <div class="col-2 align-self-center">
-                            <a href={{ path('recipe_edit', { 'recipe': recipe.id }) }} class="btn btn-primary">modifier</a>
+                            <button  class="btn btn-primary">
+                                <i class="far fa-heart mr-2"></i>{{ recipe.rate }}
+                            </button>
+                        </div>
+                        <div class="col-2 align-self-center">
+                            <button  class="btn btn-primary">
+                                <i class="far fa-comments mr-2"></i>{{ recipe.moderatedComments|length }}
+                            </button>
+                        </div>
+                        <div class="col-2 align-self-center">
+                            <a href={{ path('user_recipe_edit', { 'recipe': recipe.id }) }} class="btn btn-primary">modifier</a>
                         </div>
                     </div>
                 {% endfor %}   

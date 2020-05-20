@@ -77,7 +77,7 @@ class Comment
     {
         $this->subComment = new ArrayCollection();
         $this->isChecked = false;
-        $this->isBlocked = false;
+        $this->isBlocked = true;
         $this->isReaded = false;
     }
 

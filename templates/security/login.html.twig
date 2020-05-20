@@ -4,7 +4,7 @@
 
 {% block page %}
     <div class="card px-4 mb-3">
-        {% include 'app/components/jumbotron.html.twig' with {'title': 'Connexion' } %}
+        {% include 'app/partials/jumbotron.html.twig' with {'title': 'Connexion' } %}
         <form action="{{ path('security_login') }}" method="post">
             <div class="form-group">
                 <div class="row">

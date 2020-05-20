@@ -1,0 +1,8 @@
+ {% if message is defined and message is not null %}
+    <div class="alert alert-secondary mt-2" role="alert">
+        {{ message }}
+        <button type="button" id="js-message" class="close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endif %}

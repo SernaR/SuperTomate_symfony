@@ -21,20 +21,44 @@
                     class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarColor02">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link" href={{ path('app_category_recipes', { 'categorySlug': 'apero' }) }}>Apéro</a></li>
-                    <li class="nav-item"><a class="nav-link" href={{ path('app_category_recipes', { 'categorySlug': 'entrees' }) }}>Entrées</a></li>
-                    <li class="nav-item"><a class="nav-link" href={{ path('app_category_recipes', { 'categorySlug': 'plats' }) }}>Plats</a></li>
-                    <li class="nav-item"><a class="nav-link" href={{ path('app_category_recipes', { 'categorySlug': 'desserts' }) }}>Desserts</a></li>
-                    <li class="nav-item"><a class="nav-link" href={{ path('app_category_recipes', { 'categorySlug': 'soupes' }) }}>Soupes</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_menu is defined and current_menu =='apero' %}active{% endif %}"
+                            href={{ path('app_category_recipes', { 'categorySlug': 'apero' }) }}
+                        >Apéro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_menu is defined and current_menu =='entrees' %}active{% endif %}" 
+                            href={{ path('app_category_recipes', { 'categorySlug': 'entrees' }) }}
+                        >Entrées</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_menu is defined and current_menu =='plats' %}active{% endif %}" 
+                            href={{ path('app_category_recipes', { 'categorySlug': 'plats' }) }}
+                        >Plats</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_menu is defined and current_menu =='desserts' %}active{% endif %}" 
+                            href={{ path('app_category_recipes', { 'categorySlug': 'desserts' }) }}
+                        >Desserts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_menu is defined and current_menu =='soupes' %}active{% endif %}" 
+                            href={{ path('app_category_recipes', { 'categorySlug': 'soupes' }) }}
+                        >Soupes</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     {% if app.user %}
                         {% if is_granted('ROLE_ADMIN') %}
                             <li className="nav-item"><a class="nav-link" href="/admin">Dashboard</a></li>
                         {% endif %}
-                        <li class="nav-item"><a class="nav-link" href={{ path('recipe_user') }}>{{ app.user.name }}</a></li>
                         <li class="nav-item">
-                            <a href={{ path('recipe_add') }} class="btn btn-outline-success mx-2">Nouvelle recette</a>
+                            <a class="nav-link {% if current_menu is defined and current_menu =='user' %}active{% endif %}" 
+                                href={{ path('user_recipes') }}
+                            >{{ app.user.name }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href={{ path('user_recipe_add') }} class="btn btn-outline-success mx-2">Nouvelle recette</a>
                         </li>    
                         <li className="nav-item"><a class="btn btn-danger" href="/deconnexion">Déconnexion</a></li>
                     {% else %}

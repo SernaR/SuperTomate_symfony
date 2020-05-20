@@ -1,0 +1,39 @@
+{% extends 'app/appTemplates/userNavbar.html.twig' %}
+
+{% block tab %}
+	<div class="container card bg-white p-3 mb-3">
+		<div class="container">
+			<h2 class="pt-3 mb-4 recipe">Mes infos</h2>
+			{{ form_start(form) }}
+				<div class="form-group">
+					<div class="row">
+						<label for="name" class="col-sm-4">Mon pseudo :</label>
+						<div class="col-sm-8"><input readonly="" type="text" name="name" id="name" class="form-control-plaintext" value="{{ user.name }}"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<label for="email" class="col-sm-4">Mon email :</label>
+						<div class="col-sm-8"><input readonly="" type="text" name="email" id="email" class="form-control-plaintext" value="{{ user.email }}"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-4">{{ form_label(form.newPassword.first, 'Modifier le mot de passe') }}</div>
+						<div class="col-sm-8">{{ form_widget(form.newPassword.first) }}</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-4">{{ form_label(form.newPassword.second, 'Confirmation') }}</div>
+						<div class="col-sm-8">{{ form_widget(form.newPassword.second) }}</div>
+					</div>
+				</div>
+				<div class="row justify-content-end mr-1">
+					<button type="submit" class="btn btn-outline-secondary btn-sm">{{ 'action.save'|trans }}</button>
+				</div>
+			{{ form_end(form) }}
+			{% include 'app/partials/message.html.twig' with {'message': message } %}
+		</div>
+	</div>
+{% endblock %}

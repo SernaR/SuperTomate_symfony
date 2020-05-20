@@ -6,15 +6,15 @@
       <li class="breadcrumb-item active">{{ category }}</li>
    </ol>
    <div class="card px-4 mb-3">
-      {% include 'app/components/jumbotron.html.twig' with {'title': category } %}
+      {% include 'app/partials/jumbotron.html.twig' with {'title': category } %}
       <div class="row">
          <div class="col-sm-3 bg-light border-right">
-            {% include 'app/components/aside.html.twig' %}
+            {% include 'app/partials/aside.html.twig' %}
          </div>
          <div class="col-sm-9">
             <div class="card-group card-1" id="filtered-list">
                {% for recipe in recipes %}
-                   {% include 'app/components/recipeCard.html.twig' with {'recipe': recipe, 'col': 'col-4' } %}
+                   {% include 'app/partials/recipeCard.html.twig' with {'recipe': recipe, 'col': 'col-4' } %}
                {% endfor %}    
             </div>
          </div>
