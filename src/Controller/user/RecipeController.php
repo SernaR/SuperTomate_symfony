@@ -52,7 +52,7 @@ class RecipeController extends AbstractController
         $user = $this->getUser();
         $recipes = $recipeRepository->findBy(['user' => $user]);
 
-        return $this->render('app/userPages/userRecipes.html.twig', [
+        return $this->render('app/userPages/recipes.html.twig', [
             'recipes' => $recipes,
             'current_menu' => 'user'
         ]);

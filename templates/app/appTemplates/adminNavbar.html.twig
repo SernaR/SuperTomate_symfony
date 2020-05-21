@@ -1,0 +1,16 @@
+{% extends 'app/appTemplates/pageTemplate.html.twig' %}
+
+{% block page %}
+	<div class="card px-4 mb-3">
+		{% include 'app/partials/jumbotron.html.twig' with {'title': ['Bienvenue ',app.user.name]|join(' ') } %}
+		<ul class="nav justify-content-center mb-2">
+			<li class="nav-item">
+				<a href={{ path('admin_recipes') }} class="nav-link pointer {% if current_menu is defined and current_menu == 'admin' %}active{% endif %}">Recettes</a>
+			</li>
+			<li class="nav-item">
+				<a href={{ path('admin_comments') }} class="nav-link pointer {% if current_menu is defined and current_menu == 'comments' %}active{% endif %}">Commentaires</a>
+			</li>
+		</ul>
+		{% block tab %}{% endblock %}
+	</div>
+{% endblock %}

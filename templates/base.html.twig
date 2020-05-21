@@ -50,8 +50,14 @@
                 <ul class="navbar-nav ml-auto">
                     {% if app.user %}
                         {% if is_granted('ROLE_ADMIN') %}
-                            <li className="nav-item"><a class="nav-link" href="/admin">Dashboard</a></li>
+                            <li className="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
+                            <li className="nav-item">
+                                <a class="nav-link {% if current_menu is defined and current_menu == 'admin' %}active{% endif %}" 
+                                    href={{ path('admin_recipes') }}
+                                >Modération</a>
+                            </li>
                         {% endif %}
+                         &nbsp;
                         <li class="nav-item">
                             <a class="nav-link {% if current_menu is defined and current_menu =='user' %}active{% endif %}" 
                                 href={{ path('user_recipes') }}

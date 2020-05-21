@@ -1,7 +1,9 @@
 
 import '../css/app.css';
+//import './addRecipe'
 import { addRecipeCollectionHandler } from './addRecipe'
 import { setRecipeByCategoryFilters } from './categoryRecipes'
+import  './readComments'
 //import { setRecipeByCategoryFilters } from './test'
 
 $( document ).ready(function() {
