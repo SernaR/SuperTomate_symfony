@@ -44,7 +44,7 @@
             {% endif %}    
         </div>
         <div class="row p-3">
-            <div id="recette-img" class="col"><img class="img-fluid card" alt="Responsive image recette" src={{ vich_uploader_asset(recipe, 'imageFile') }}></div>
+            <div id="recette-img" class="col"><img class="img-fluid card" alt={{ recipe.name }} src={{ vich_uploader_asset(recipe, 'imageFile') }}></div>
             <div class="col card py-3 lead">
                 <h2 class="display-4 text-center  mb-4 recipe">Ingrédients</h2>
                 <div class="container pt-3">

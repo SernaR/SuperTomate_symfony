@@ -120,3 +120,14 @@ ul{list-style-type: none;}
 .heroine{
 	text-align:left;
 	padding:1em;}
+
+/*/////////////////////////////////////*/
+.validation_field {
+	font-size: inherit;
+	border: none;
+	text-align: inherit;
+	
+}
+.icon-recipe{
+	height: 50px;
+}

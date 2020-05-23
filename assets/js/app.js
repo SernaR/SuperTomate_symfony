@@ -5,6 +5,7 @@ import { addRecipeCollectionHandler } from './addRecipe'
 import { setRecipeByCategoryFilters } from './categoryRecipes'
 import  './readComments'
 //import { setRecipeByCategoryFilters } from './test'
+import './Tagsmanagment'
 
 $( document ).ready(function() {
 

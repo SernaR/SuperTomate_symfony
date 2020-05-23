@@ -160,6 +160,11 @@ class Recipe
      */
     private $isChecked = false;
 
+    /**
+     * @ORM\Column(type="string", length=160, nullable=true)
+     */
+    private $description;
+
 
     public function __construct()
     {   
@@ -542,6 +547,18 @@ class Recipe
     public function setIsChecked(bool $isChecked): self
     {
         $this->isChecked = $isChecked;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

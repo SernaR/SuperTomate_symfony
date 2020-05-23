@@ -1,0 +1,31 @@
+{% extends 'app/appTemplates/adminNavbar.html.twig' %}
+
+{% block tab %}
+    <div class="container card bg-white p-3 mb-3">
+		<div class="container">
+			<h2 class="pt-3 mb-4 recipe">Meta description et mots clé pour : {{ recipe }}</h2>
+            {{ form_start(form) }}
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-4">{{ form_label(form.description, 'Déscription') }}</div>	
+                        <div class="col-sm-8">{{ form_widget(form.description) }}</div> 
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-4">Mots clé</div>
+                        <div class="col-sm-8">  
+                            {% for tag in tags %}
+                                <span class="react-tag" data-recipe={{ recipeId }} data-name={{ tag.name }} data-id={{ tag.id }}></span>
+                            {% endfor %}
+                            <p><span class="small">Limité à 3 badges maximum</span></p>
+                        </div>
+                    </div>
+                </div>  
+                <div class="row mt-3 justify-content-end">
+                    <button type="submit" class="btn btn-outline-danger btn-sm mr-3">Envoyer</button>
+                </div>
+            {{ form_end(form) }}         
+    	</div> 
+	</div>        
+{% endblock %}
