@@ -1,14 +1,12 @@
-
-
 const tags = []
 let name = ''
 let $cards = $('.filtered-list')
 
-exports.setRecipeByCategoryFilters = () => {
+$( document ).ready(function() {    
     $('.tag-filter').change(function() { filterByTag(this) })
     $('#recipeName-filter').focus().keyup( function() { filterByName(this) })
     $('#clear-filter').click( function() { clearFilters() })
-}
+})
 
 /**
  * filter recipe by tag selected in checkbox

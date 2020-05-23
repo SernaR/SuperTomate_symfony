@@ -46,6 +46,5 @@ class CommentController extends AbstractController
                 'message' => $e->getMessage()
             ], 500);
         }
-
     }
 }

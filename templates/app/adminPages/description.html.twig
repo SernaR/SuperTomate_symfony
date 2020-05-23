@@ -3,7 +3,7 @@
 {% block tab %}
     <div class="container card bg-white p-3 mb-3">
 		<div class="container">
-			<h2 class="pt-3 mb-4 recipe">Meta description et mots clé pour : {{ recipe }}</h2>
+			<h2 id="js-tag-selection-recipe" class="pt-3 mb-4 recipe" data-recipe={{ recipeId }} >Meta description et mots clé pour : {{ recipe }}</h2>
             {{ form_start(form) }}
                 <div class="form-group">
                     <div class="row">
@@ -16,7 +16,11 @@
                         <div class="col-sm-4">Mots clé</div>
                         <div class="col-sm-8">  
                             {% for tag in tags %}
-                                <span class="react-tag" data-recipe={{ recipeId }} data-name={{ tag.name }} data-id={{ tag.id }}></span>
+                                 <span 
+                                    class="badge ml-1 pointer badge-secondary js-tag-selection"
+                                    data-selected=false 
+                                    data-id={{ tag.id }}
+                                >{{ tag.name }}</span>
                             {% endfor %}
                             <p><span class="small">Limité à 3 badges maximum</span></p>
                         </div>

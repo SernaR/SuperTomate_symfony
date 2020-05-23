@@ -3,9 +3,9 @@
 {% block tab %}
 	<div class="container card bg-white p-3 mb-3">
 		<div class="container">
-			<h2 class="pt-3 mb-4 recipe">{{ recipeCount }} recettes à vérifier</h2>
+			<h2 class="pt-3 mb-4 recipe">{{ recipe|length }} recettes à vérifier</h2>
 			<div class="card px-4 mb-3">
-				{% if recipeCount > 0  %}
+				{% if recipe|length > 0  %}
 					{{ form_start(form) }}
 						<h3 class="display-2 text-center py-4">{{ form_widget(form.name, {'attr': {'class': 'validation_field'}}) }}</h3>
 						<div class="row d-flex justify-content-around p-2">

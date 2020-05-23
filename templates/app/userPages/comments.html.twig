@@ -4,7 +4,7 @@
 	<div class="container card bg-white p-3 mb-3">
 		<div class="container">
 			<h2 class="pt-3 mb-4 recipe">
-                <span id="js-read-count-title">{{ comments|length }}</span> commentaires
+                <span id="js-count-comments">{{ comments|length }}</span> commentaires
             </h2>
             {% for comment in comments %}
                 <div class="list-group-item ">
@@ -14,7 +14,7 @@
                     </div>
                     <p class="mb-2">{{ comment.content|raw }}</p>
                     <div class="row justify-content-end">
-                        <button class="btn btn-outline-dark btn-sm mr-3 js-read" data-id={{ comment.id  }}>Marquer comme lu</button>
+                        <button class="btn btn-outline-dark btn-sm mr-3 js-read-comment" data-id={{ comment.id }}>Marquer comme lu</button>
                     </div>
                 </div>
             {% endfor %}

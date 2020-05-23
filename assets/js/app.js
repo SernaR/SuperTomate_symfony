@@ -1,16 +1,11 @@
 
 import '../css/app.css';
-//import './addRecipe'
-import { addRecipeCollectionHandler } from './addRecipe'
-import { setRecipeByCategoryFilters } from './categoryRecipes'
-import  './readComments'
-//import { setRecipeByCategoryFilters } from './test'
-import './Tagsmanagment'
+import './collections'
+import  './recipesFilter'
+import './comments'
+import './tags'
 
 $( document ).ready(function() {
-
-    setRecipeByCategoryFilters()
-    addRecipeCollectionHandler()
 
     /**
      * fermeture des message de confirmation
@@ -25,8 +20,6 @@ $( document ).ready(function() {
     let searchParams = new URLSearchParams(window.location.search) 
     if(searchParams.has('message'))
         $('html, body').animate({scrollTop: $('#new-comment').offset().top -100 }, 'fast');
-
-
      
 })
 

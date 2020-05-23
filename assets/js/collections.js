@@ -1,8 +1,8 @@
-exports.addRecipeCollectionHandler = () => {
+//exports.addRecipeCollectionHandler = () => {
+$( document ).ready(function() {    
     addPlusButton('.js-steps').click( function() { addNewForm( $(this), 'textarea' )})
-    addPlusButton('.js-ingredients').click( function(){ addNewForm( $(this), 'input')})
-        
-}
+    addPlusButton('.js-ingredients').click( function(){ addNewForm( $(this), 'input')})      
+})
 
 /**
  * display collectionHolder with delete buttons
