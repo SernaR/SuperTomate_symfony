@@ -7,13 +7,15 @@
         <li class="breadcrumb-item active">{{ recipe.name }}</li>
     </ol>
     <div class="card px-4 mb-3">
-        <div class="row mt-2 d-flex justify-content-end">
-            {% if recipe.isDraft %}
-                <a href={{ path('user_recipe_edit', { 'recipe': recipe.id }) }} class="mx-3 badge badge-secondary pointer">Brouillon</a>
-            {% else %}
-                <a href={{ path('user_recipe_edit', { 'recipe': recipe.id }) }} class="mx-3 badge badge-primary pointer">modifier</a>
-            {% endif %}
-        </div>
+        {% if app.user %}
+            <div class="row mt-2 d-flex justify-content-end">
+                {% if recipe.isDraft %}
+                    <a href={{ path('user_recipe_edit', { 'recipe': recipe.id }) }} class="mx-3 badge badge-secondary pointer">Brouillon</a>
+                {% else %}
+                    <a href={{ path('user_recipe_edit', { 'recipe': recipe.id }) }} class="mx-3 badge badge-primary pointer">modifier</a>
+                {% endif %}
+            </div>
+        {% endif %}
         <h1 class="display-2 text-center py-4">{{ recipe.name }}</h1>
         <div class="row">
             <div class="col-12 text-center">
