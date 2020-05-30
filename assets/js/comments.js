@@ -25,5 +25,5 @@ function setActionBtn(selector, apiCall) {
           alert('oups, une erreur est survenue')
       } 
     })
-})
+  })
 }

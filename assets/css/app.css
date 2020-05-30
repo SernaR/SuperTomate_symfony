@@ -102,10 +102,6 @@ ul{list-style-type: none;}
 	background: #78c2ad;}
 
 /*-----HOME PAGE-----*/
-/*retirer padding-top en dur dans jumbotron et class "lead" toutes pages*/
-/*retirer text-primary dasn h1 & h2 jumbotron*/
-/*rajouter class "home-title-2" sur les h2 sauf h2-jumbotron*/
-/*rajouter "home-title-3" sur titre de la recette héroine*/
 .tomato{
     /*background-image: url('/img/tomathome.jpg');*/
     background-image: url('/images/app/tomathome.jpg');
@@ -130,4 +126,5 @@ ul{list-style-type: none;}
 }
 .icon-recipe{
 	height: 50px;
+	vertical-align: sub;
 }

@@ -2,7 +2,7 @@
 
 namespace App\Controller\user;
 
-use App\Form\Type\ChangePasswordType;
+use App\Form\ChangePasswordType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

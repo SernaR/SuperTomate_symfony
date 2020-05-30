@@ -20,4 +20,12 @@ class AppController extends AbstractController
             'headline' =>$recipeHighlightRepository->headline()
         ]);
     }
+
+    /**
+     * @Route("/mentions_legales", name="app_legal_notice")
+     */
+    public function legalNotice()
+    {
+        return $this->render('app/legalNotice.html.twig');
+    }
 }

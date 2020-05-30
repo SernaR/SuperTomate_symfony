@@ -26,22 +26,22 @@
         </div>
         <div class="row d-flex justify-content-around p-2">
             <div>               
-                <p><img src={{ asset('/images/app/icon-difficulty.png') }}> {{ recipe.difficulty.name }}</p>
+                <p><img class ="icon-recipe" src={{ asset('/images/app/icon-difficulty.png') }}> {{ recipe.difficulty.name }}</p>
             </div>
             <div>               
-                <p><img src={{ asset('/images/app/icon-part.png') }}> {{ recipe.serve }}</p>
+                <p><img class ="icon-recipe" src={{ asset('/images/app/icon-part.png') }}> {{ recipe.serve }}</p>
             </div>
             <div>               
-                <p><img src={{ asset('/images/app/icon-time.png') }}> {{ recipe.making }} mn</p>
+                <p><img class ="icon-recipe" src={{ asset('/images/app/icon-time.png') }}> {{ recipe.making }} mn</p>
             </div>
             {% if recipe.cook != 0 %}
                 <div>               
-                    <p><img src={{ asset('/images/app/icon-cook.png') }}> {{ recipe.cook }} mn</p>
+                    <p><img class ="icon-recipe" src={{ asset('/images/app/icon-cook.png') }}> {{ recipe.cook }} mn</p>
                 </div>
             {% endif %}   
             {% if recipe.wait != 0 %}
                 <div>               
-                    <p><img src={{ asset('/images/app/icon-pause.png') }}> {{ recipe.wait }} mn</p>
+                    <p><img class ="icon-recipe" src={{ asset('/images/app/icon-pause.png') }}> {{ recipe.wait }} mn</p>
                 </div>
             {% endif %}    
         </div>

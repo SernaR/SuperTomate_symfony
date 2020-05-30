@@ -76,7 +76,7 @@
         </header>
         {% block body %}{% endblock %}
         <footer class="flex-row-reverse ">© 2019 Super-Tomate | Site réalisé par 
-            <a href="https://www.kipcreativ.fr">Kip Creativ</a> | <a href="/">Mentions légales</a>
+            <a href="https://www.kipcreativ.fr">Kip Creativ</a> | <a href={{ path('app_legal_notice') }}>Mentions légales</a>
         </footer>
         {% block javascripts %}
             <script src="https://kit.fontawesome.com/f0b078baa8.js" crossorigin="anonymous"></script>
