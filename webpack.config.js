@@ -69,6 +69,10 @@ Encore
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
+
+    Encore.configureDefinePlugin(options => {
+        options["process.env"].APP_URL = process.env.APP_URL
+    })
 ;
 
 module.exports = Encore.getWebpackConfig();
